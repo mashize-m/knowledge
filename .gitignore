@@ -20,9 +20,9 @@ ENV/
 .env.*
 !.env.example
 
-## 数据文件（按需）
-#data/*
-#!data/.gitkeep
+# 数据文件（按需）
+data/*
+!data/.gitkeep
 #
 ## 临时草稿/验证文件
 #scratch/*

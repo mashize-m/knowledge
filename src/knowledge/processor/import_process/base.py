@@ -3,7 +3,7 @@
 
 定义统一的节点接口规范，提供通用功能
 """
-
+import sys
 from abc import ABC, abstractmethod
 from typing import TypeVar, Optional
 import logging
@@ -88,9 +88,6 @@ class BaseNode(ABC):
                 cause=e
             )
 
-    """
-    @abstractmethod 是 Python 中 abc（Abstract Base Class，抽象基类）模块提供的一个装饰器，用来声明“抽象方法”。子类必须实现。
-    """
     @abstractmethod
     def process(self, state: T) -> T:
         """
@@ -120,7 +117,7 @@ class BaseNode(ABC):
         self.logger.info(log_msg)
 
 
-# 配置日志格式
+# 配置日志格式。只是配置，不会有输出。
 def setup_logging(level: int = logging.INFO):
     """
     配置导入流程日志
@@ -131,5 +128,6 @@ def setup_logging(level: int = logging.INFO):
     logging.basicConfig(
         level=level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
+        datefmt='%Y-%m-%d %H:%M:%S',
+        stream=sys.stdout,   # 关键：改成 stdout，可以跟print保持同一频道输出
     )

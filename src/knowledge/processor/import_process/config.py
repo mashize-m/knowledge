@@ -14,14 +14,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-"""
-@dataclass:是 Python 3.7+ 引入的装饰器，用于自动生成类的样板代码。
-它会自动为类生成以下方法：
-__init__() - 构造函数
-__repr__() - 字符串表示
-__eq__() - 相等比较
-__hash__() - 哈希（可选）
-"""
 @dataclass
 class ImportConfig:
     """导入流程配置"""

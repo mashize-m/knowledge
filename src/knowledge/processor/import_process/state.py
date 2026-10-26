@@ -53,17 +53,7 @@ GRAPH_DEFAULT_STATE: ImportGraphState = {
     "item_name": "",
 }
 
-"""
-**overrides 是 Python 的可变关键字参数语法。
-    ** 表示：收集任意数量的关键字参数，打包成一个字典。
-    overrides 只是变量名，可以换成任何名字，比如：kwargs
 
-相当于：
-overrides == {
-    "task_id": "task_001",
-    "import_file_path": "doc.pdf"
-}
-"""
 def create_default_state(**overrides) -> ImportGraphState:
     """
     创建默认状态，支持覆盖
