@@ -1,0 +1,49 @@
+[project]
+name = "knowledge"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "masz", email = "137854126@qq.com" }
+]
+requires-python = ">=3.12.15"
+dependencies = [
+    "torch==2.7.1",
+    "torchvision==0.22.1",
+    "torchaudio==2.7.1",
+    "minio==7.2.20",
+    "langchain-openai==1.2.2",
+    "langgraph==1.2.2",
+    "grandalf==0.8",
+    "pymilvus[model]==3.0.0",
+    "sentence-transformers==5.5.1",
+    "pymongo==4.17.0",
+    "mineru[all]==3.2.1",
+    "openai-agents==0.17.4",
+    # 添加以下环境标记，确保这些包只在 Linux 上安装
+    "nvidia-cublas-cu12; sys_platform == 'linux'",
+    "nvidia-cuda-cupti-cu12; sys_platform == 'linux'",
+    "nvidia-cuda-nvrtc-cu12; sys_platform == 'linux'",
+    "nvidia-cuda-runtime-cu12; sys_platform == 'linux'",
+    "nvidia-cudnn-cu12; sys_platform == 'linux'",
+    "nvidia-cufft-cu12; sys_platform == 'linux'",
+    "nvidia-curand-cu12; sys_platform == 'linux'",
+    "nvidia-cusolver-cu12; sys_platform == 'linux'",
+    "nvidia-cusparse-cu12; sys_platform == 'linux'",
+    "nvidia-nccl-cu12; sys_platform == 'linux'",
+    "nvidia-nvjitlink-cu12; sys_platform == 'linux'",
+    "nvidia-nvtx-cu12; sys_platform == 'linux'",
+    "flagembedding>=1.4.2",
+]
+
+[project.scripts]
+knowledge = "knowledge:main"
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
