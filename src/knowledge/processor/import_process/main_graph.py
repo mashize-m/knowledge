@@ -102,14 +102,10 @@ def create_import_graph() -> CompiledStateGraph:
 # 创建全局图实例
 compiled_graph = create_import_graph()
 
-def run_import_graph(import_file_path: str, file_dir: str):
+def run_import_graph(**inputState):
 
     # 创建状态 state
-    state = {
-        "import_file_path": import_file_path,
-        "file_dir": file_dir
-    }
-    init_state = create_default_state(**state)
+    init_state = create_default_state(**inputState)
 
     # 运行实例，流式
     final_state = None
