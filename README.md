@@ -11,7 +11,43 @@ uv sync
 
 # 设置python解释器路径
 
+# 拉取项目时执行下面命令，激活虚拟环境。激活后终端路径前会有 （knowledge）显示
+.\.venv\Scripts\Activate.ps1
+
 # 设置src为根目录
+```
+
+
+## 切换python环境
+
+```powershell
+# 检查 pyproject.toml最低版本要求，是否满足新的python版本
+requires-python = ">=3.12.15"
+
+# 第 1 步：锁定新的 Python 版本
+# 预期结果：终端显示类似 Updated .python-version from 3.12.15 -> 3.10.22 的提示。项目根目录下的 .python-version 文件内容已变为 3.10.22。此命令确保了后续所有 uv 操作都优先使用这个版本
+uv python pin 3.10.22
+
+# 修改锁定版本
+uv lock
+
+# 第 2 步：删除旧的虚拟环境
+# 预期结果：项目根目录下的 .venv 文件夹已被删除。
+Remove-Item -Recurse -Force .venv
+
+# 第 3 步：根据锁定的版本重建环境与依赖
+# 预期结果：终端会显示 Using CPython 3.10.22、Creating virtual environment at: .venv，并开始根据 uv.lock 重新安装所有依赖包。完成后，一个指向 Python 3.10.22 的新 .venv 就绪了。
+uv sync
+
+# 第 4 步：更新 PyCharm 的项目解释器
+
+# 第 5 步：激活虚拟环境
+# 预期结果：激活后终端路径前会有 （knowledge）显示
+.\.venv\Scripts\Activate.ps1
+
+# 第 6 步：验证命令行版本
+# 预期结果：显示正确的python版本号
+python --version
 ```
 
 
