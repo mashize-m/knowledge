@@ -119,8 +119,8 @@ def run_import_graph(**inputState):
 if __name__ == '__main__':
     setup_logging()
 
-    import_file_path = r"D:\development\AIAgent\shopkeeper_brain\knowledge\data\test_data\万用表的使用.pdf"
-    file_dir = r"D:\development\AIAgent\shopkeeper_brain\knowledge\data\test_data"
+    import_file_path = r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/doc/万用表RS-12的使用.pdf"
+    file_dir = r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/output/"
 
     # 1. 测试编排流程
     final_state = run_import_graph(

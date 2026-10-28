@@ -129,5 +129,5 @@ def setup_logging(level: int = logging.INFO):
         level=level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
-        stream=sys.stdout,   # 关键：改成 stdout，可以跟print保持同一频道输出
+        # stream=sys.stdout,   # 关键：改成 stdout，可以跟print保持同一频道输出
     )
