@@ -16,7 +16,7 @@ def test_milvus():
     try:
         from pymilvus import MilvusClient
         client = MilvusClient(
-            uri=os.getenv("MILVUS_URL", "http://192.168.6.150:19530"),
+            uri=os.getenv("MILVUS_URL", "http://192.168.1.10:19530"),
             token=f"{os.getenv('MILVUS_USER', 'root')}:{os.getenv('MILVUS_PASSWORD', 'Milvus')}")
         version = client.get_server_version()
         print(f"  ✓ Milvus 连接成功，版本: {version}")
@@ -33,7 +33,7 @@ def test_mongodb():
     try:
         from pymongo import MongoClient
         client = MongoClient(
-            os.getenv("MONGO_URL", "mongodb://192.168.6.150:27017"),
+            os.getenv("MONGO_URL", "mongodb://192.168.1.10:27017"),
             serverSelectionTimeoutMS=5000,
             #username=os.getenv("MONGO_USER", "admin"),  # 新增：读取账号
             #password=os.getenv("MONGO_PASSWORD", "123456"),  # 新增：读取密码
@@ -48,17 +48,19 @@ def test_mongodb():
         print(f"  ✗ MongoDB 连接失败: {e}")
         return False
 
-
+# 客户端：192.168.1.10:9001
+# 服务端：192.168.1.10:9000
+# 资源地址：192.168.1.10:9000/桶名称/资源名称。例如：192.168.1.10:9000/atguigu/云朵面包店.png
 def test_minio():
     """测试 MinIO 连接"""
     print("测试 MinIO 连接...")
     try:
         from minio import Minio
         client = Minio(
-            os.getenv("MINIO_ENDPOINT", "192.168.6.150:9000"),
+            os.getenv("MINIO_ENDPOINT", "192.168.1.10:9000"),
             access_key=os.getenv("MINIO_ACCESS_KEY", "minioadmin"),
             secret_key=os.getenv("MINIO_SECRET_KEY", "minioadmin"),
-            secure=False
+            secure=False # 是否使用https
         )
         buckets = client.list_buckets()
         bucket_names = [b.name for b in buckets]

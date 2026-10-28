@@ -21,7 +21,9 @@ print()
 # pipeline 模型
 
 proc = subprocess.Popen(
-    args=["mineru", "-p", r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/doc/万用表RS-12的使用.pdf", "-o", r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/output/", "--backend", "pipeline"],
+    # 根据路径不同，选择性开启
+    # args=["mineru", "-p", r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/doc/万用表RS-12的使用.pdf", "-o", r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/output/", "--backend", "pipeline"],
+    # args=["mineru", "-p", r"D:/development/AIAgent/knowledge/data/doc/万用表RS-12的使用.pdf", "-o", r"D:/development/AIAgent/knowledge/data/output/", "--backend", "pipeline"],
     stdout=subprocess.PIPE,  # 捕获标准输出
     stderr=subprocess.STDOUT,  # 合并错误到标准输出
     text=True,
