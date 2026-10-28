@@ -6,7 +6,7 @@ readme = "README.md"
 authors = [
     { name = "masz", email = "137854126@qq.com" }
 ]
-requires-python = ">=3.12.15"
+requires-python = ">=3.10.22"
 dependencies = [
     "torch==2.7.1",
     "torchvision==0.22.1",
@@ -18,7 +18,7 @@ dependencies = [
     "pymilvus[model]==3.0.0",
     "sentence-transformers==5.5.1",
     "pymongo==4.17.0",
-    "mineru[all]==3.2.1",
+    "mineru[all]==3.4.1",
     "openai-agents==0.17.4",
     # 添加以下环境标记，确保这些包只在 Linux 上安装
     "nvidia-cublas-cu12; sys_platform == 'linux'",
