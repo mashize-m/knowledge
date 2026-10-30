@@ -9,7 +9,7 @@ load_dotenv()
 # 初始化客户端
 client = OpenAI(
     api_key=os.getenv("DASHSCOPE_API_KEY"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+    base_url = "https://ws-wfidrx802w57h4di.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
 )
 
 # 图片转 Base64
@@ -18,7 +18,7 @@ with open("D:/download/google-download/云朵面包店.png", "rb") as f:
     # print(base64_image)
 # 调用 VLM
 response = client.chat.completions.create(
-    model="qwen3.8-flash",  # 视觉模型
+    model="qwen3.8-max",  # 视觉模型
     # model="qwen3-vl-plus", #视觉模型
     messages=[
         {
@@ -40,6 +40,6 @@ response = client.chat.completions.create(
     max_tokens=100
 )
 
-summary = response.choices[0].message.content
+summary = response
 print(summary)
 

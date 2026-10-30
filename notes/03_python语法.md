@@ -51,7 +51,9 @@ create_default_state(**{"task_id": "task_001"})
 create_default_state(task_id="task_001")
 ```
 
-# 4、@abstractmethod 抽象函数
+# 4、装饰器
+
+## @abstractmethod 抽象方法
 
 ```python
 from abc import ABC, abstractmethod
@@ -68,6 +70,94 @@ class BaseNode(ABC):
   + 任何继承 `BaseNode` 的子类，都必须自己实现 `process` 方法。
 + `ABC`：类继承的抽象基类，配合 `@abstractmethod` 使用。
 + `@abstractmethod` 要生效，类必须继承 `ABC`。
+
+## @staticmethod 静态方法
+
+```
+class BaseNode(ABC):
+
+    @staticmethod
+    def check_state(state: dict) -> bool:
+        """校验 state 是否合法，不需要访问 self 或 cls"""
+        return bool(state.get("task_id"))
+```
+
+- `@staticmethod` 是 Python 内置装饰器，用来把类里的方法声明为“**静态方法**”。
+  - 静态方法**不接收隐式的第一个参数**（没有 `self`，也没有 `cls`）。
+  - 它本质上就是**写在类命名空间里的普通函数**，只是通过类或实例都能调用。
+- 调用方式：
+  - `BaseNode.check_state(state)`（推荐，语义清晰）
+  - `node.check_state(state)`（也能调，但不会传 `self`）
+- 适用场景：
+  - 逻辑上属于这个类，但**不需要访问实例属性或类属性**；
+  - 工具函数、校验函数、纯计算、格式转换；
+  - 想避免污染模块全局命名空间时，放进类里。
+- 注意点：
+  - 不是“抽象方法”的替代品，**子类不实现也不会报错**（除非配合 `@abstractmethod`）。
+  - 静态方法里不能直接访问 `self.xxx` 或 `cls.xxx`，否则 `NameError`。
+  - 可以被子类继承，也可以被子类覆盖。
+
+```python
+class A:
+    @staticmethod
+    def add(x, y):
+        return x + y
+
+A.add(1, 2)     # 3
+A().add(1, 2)   # 3，实例调用不传 self
+```
+
+
+
+------
+
+## @classmethod 类方法
+
+```python
+class BaseNode(ABC):
+
+    @classmethod
+    def from_config(cls, config: dict) -> "BaseNode":
+        """用配置构造实例，cls 指向当前类（或其子类）"""
+        return cls(config=config)
+```
+
+- `@classmethod` 是 Python 内置装饰器，用来把类里的方法声明为“**类方法**”。
+  - 类方法**第一个参数固定是 `cls`**，指向**调用它的类本身**（不是实例）。
+  - 通过 `cls(...)` 可以创建实例，`cls.xxx` 可以访问类属性。
+- 调用方式：
+  - `BaseNode.from_config(cfg)`（推荐）
+  - `node.from_config(cfg)`（也能调，但 `cls` 仍是类，不是实例）
+- 适用场景：
+  - **替代构造器**：`from_dict`、`from_json`、`from_config`、`from_file` 等工厂方法；
+  - 需要访问/修改**类属性**（如全局计数器、注册表）；
+  - 想根据子类动态创建实例（多态构造）。
+- 和 `@staticmethod` 的关键区别：
+  - 类方法**能拿到 `cls`**，静态方法拿不到；
+  - 类方法常用于“构造 + 多态”，静态方法常用于“纯工具函数”。
+- 注意点：
+  - `cls` 是类，不是实例，不能访问 `self.xxx` 实例属性；
+  - 子类调用时 `cls` 是子类，能实现“父类定义、子类构造”的多态：
+
+```python
+class PdfNode(BaseNode):
+    pass
+
+PdfNode.from_config(cfg)   # cls 是 PdfNode，返回 PdfNode 实例
+```
+
+```python
+class A:
+    count = 0
+
+    @classmethod
+    def incr(cls):
+        cls.count += 1
+        return cls.count
+
+A.incr()        # 1
+A.incr()        # 2，操作的是类属性
+```
 
 # 5、核心容器类型
 
