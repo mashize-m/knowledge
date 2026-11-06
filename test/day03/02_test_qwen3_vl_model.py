@@ -13,12 +13,12 @@ client = OpenAI(
 )
 
 # 图片转 Base64
-with open("D:/download/google-download/云朵面包店.png", "rb") as f:
+with open("D:/临时/Snipaste_2026-11-03_19-55-59.png", "rb") as f:
     base64_image = base64.b64encode(f.read()).decode("utf-8")
     # print(base64_image)
 # 调用 VLM
 response = client.chat.completions.create(
-    model="qwen3.8-max",  # 视觉模型
+    model="qwen3.8-max-0902",  # 视觉模型
     # model="qwen3-vl-plus", #视觉模型
     messages=[
         {
