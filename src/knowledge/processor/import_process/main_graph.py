@@ -100,7 +100,7 @@ def create_import_graph() -> CompiledStateGraph:
     # 运行实例。invoke 或者 stream
 
 # 创建全局图实例
-compiled_graph = create_import_graph()
+kb_import_process_graph = create_import_graph()
 
 def run_import_graph(**inputState):
 
@@ -109,7 +109,7 @@ def run_import_graph(**inputState):
 
     # 运行实例，流式
     final_state = None
-    for event in compiled_graph.stream(init_state):
+    for event in kb_import_process_graph.stream(init_state):
         for node_name, state in event.items():
             final_state = state
 
@@ -119,8 +119,8 @@ def run_import_graph(**inputState):
 if __name__ == '__main__':
     setup_logging()
 
-    import_file_path = r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/doc/万用表RS-12的使用.pdf"
-    file_dir = r"E:/msz/AIAgent/shopkeeper_brain/knowledge/data/output/"
+    import_file_path = r"D:\msz\practice\knowledge\data\doc\万用表RS-12的使用.pdf"
+    file_dir = r"D:\msz\practice\knowledge\data\output"
 
     # 1. 测试编排流程
     final_state = run_import_graph(
@@ -133,4 +133,4 @@ if __name__ == '__main__':
     # 2. 打印图结构（ASCII 可视化）
     print("-" * 50)
     print("图结构:")
-    compiled_graph.get_graph().print_ascii()
+    kb_import_process_graph.get_graph().print_ascii()
